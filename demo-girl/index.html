@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fff9f4" />
+    <meta name="description" content="Demostración de revelación: niña." />
+    <title>Una dulce sorpresa · Demo niña</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <canvas id="celebration-canvas" aria-hidden="true"></canvas>
+    <div class="sky-decoration" aria-hidden="true"><span class="cloud cloud-one"></span><span class="cloud cloud-two"></span><span class="spark spark-one">✦</span><span class="spark spark-two">✦</span><span class="spark spark-three">✦</span></div>
+    <main class="reveal-shell" aria-live="polite">
+      <div class="demo-badge">Demo · niña</div><p class="eyebrow">Una pequeña sorpresa está por llegar</p>
+      <h1 class="hero-title">¿Quién será<br /><em>nuestro pequeño</em><br />amor?</h1><p class="event-note">La magia comienza en un instante</p>
+      <section class="countdown-card" aria-label="Cuenta regresiva"><div class="clock" aria-hidden="true"><span class="clock-dot"></span><span class="hand hand-hour"></span><span class="hand hand-minute"></span><span class="hand hand-second"></span><span class="tick t12"></span><span class="tick t3"></span><span class="tick t6"></span><span class="tick t9"></span></div><div class="counter" aria-label="Tiempo restante"><div><strong id="days">00</strong><span>días</span></div><i>:</i><div><strong id="hours">00</strong><span>horas</span></div><i>:</i><div><strong id="minutes">00</strong><span>min.</span></div><i>:</i><div><strong id="seconds">10</strong><span>seg.</span></div></div></section>
+      <p class="tiny-note">Prepárate para la sorpresa ✦</p>
+    </main>
+    <section class="reveal-panel" aria-hidden="true"><div class="reveal-glow"></div><div class="balloon b-one"></div><div class="balloon b-two"></div><div class="balloon b-three"></div><div class="reveal-copy"><p class="eyebrow">La espera terminó</p><h2>¡Es una niña!</h2><p>Te esperamos con mucho amor.</p><button class="restart-button" id="restart" type="button">Ver la demo otra vez <span>↻</span></button></div></section>
+    <script>window.REVEAL_CONFIG={mode:'demo',demoDurationMs:10000,result:'girl',title:'¡Es una niña!',subtitle:'Te esperamos con mucho amor.'};</script>
+    <script src="../assets/reveal.js"></script>
+  </body>
+</html>

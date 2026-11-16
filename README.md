@@ -1,6 +1,6 @@
 # Baby Reveal
 
-Demo estático para una revelación de género. La experiencia activa está en `/demo/`.
+Demo estático para una revelación de género. Las demostraciones activas están en `/demo-boy/` y `/demo-girl/`.
 
 Última actualización: preparado para el primer despliegue con GitHub Pages.
 

@@ -2,6 +2,8 @@
 
 Demo estático para una revelación de género. La experiencia activa está en `/demo/`.
 
+Última actualización: preparado para el primer despliegue con GitHub Pages.
+
 ## Desarrollo local
 
 ```sh

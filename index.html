@@ -4,16 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#fff9f4" />
+    <meta name="description" content="Una dulce sorpresa está por llegar." />
     <title>Una dulce sorpresa</title>
     <link rel="stylesheet" href="assets/styles.css" />
   </head>
-  <body class="landing">
-    <main class="landing-card">
-      <span class="eyebrow">Baby reveal</span>
-      <h1>Una dulce<br />sorpresa está<br />por llegar.</h1>
-      <p>La experiencia de demostración ya está lista.</p>
-      <a class="restart-button" href="demo/">Ver demostración <span>→</span></a>
+  <body>
+    <canvas id="celebration-canvas" aria-hidden="true"></canvas>
+    <div class="sky-decoration" aria-hidden="true"><span class="cloud cloud-one"></span><span class="cloud cloud-two"></span><span class="spark spark-one">✦</span><span class="spark spark-two">✦</span><span class="spark spark-three">✦</span></div>
+    <main class="reveal-shell" aria-live="polite">
+      <p class="eyebrow">Una pequeña sorpresa está por llegar</p>
+      <h1 class="hero-title">¿Quién será<br /><em>nuestro pequeño</em><br />amor?</h1>
+      <p class="event-note">24 de diciembre · 10:00 p. m. · hora de Honduras</p>
+      <section class="countdown-card" aria-label="Cuenta regresiva"><div class="clock" aria-hidden="true"><span class="clock-dot"></span><span class="hand hand-hour"></span><span class="hand hand-minute"></span><span class="hand hand-second"></span><span class="tick t12"></span><span class="tick t3"></span><span class="tick t6"></span><span class="tick t9"></span></div><div class="counter" aria-label="Tiempo restante"><div><strong id="days">00</strong><span>días</span></div><i>:</i><div><strong id="hours">00</strong><span>horas</span></div><i>:</i><div><strong id="minutes">00</strong><span>min.</span></div><i>:</i><div><strong id="seconds">00</strong><span>seg.</span></div></div></section>
+      <p class="tiny-note">Prepárate para la sorpresa ✦</p>
     </main>
-    <div class="orb orb-one"></div><div class="orb orb-two"></div><div class="star s-one">✦</div><div class="star s-two">✦</div>
+    <section class="reveal-panel" aria-hidden="true"><div class="reveal-glow"></div><div class="balloon b-one"></div><div class="balloon b-two"></div><div class="balloon b-three"></div><div class="reveal-copy"><p class="eyebrow">La espera terminó</p><h2>¡Es un niño!</h2><p>Te esperamos con mucho amor.</p></div></section>
+    <script>window.REVEAL_CONFIG={mode:'real',targetTime:'2026-12-25T04:00:00.000Z',result:'boy',title:'¡Es un niño!',subtitle:'Te esperamos con mucho amor.'};</script>
+    <script src="assets/reveal.js"></script>
   </body>
 </html>

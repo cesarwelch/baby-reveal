@@ -65,7 +65,7 @@
     voteElements.results.hidden = false;
     const storedVote = localStorage.getItem('baby-reveal-vote');
     if (storedVote) {
-      voteElements.status.textContent = `Tu voto por ${storedVote === 'boy' ? 'Logan José' : 'Mariana Marvelí'} quedó guardado. ¡Gracias!`;
+      voteElements.status.textContent = 'Tu voto quedó guardado. ¡Gracias!';
       voteElements.buttons.forEach(button => { button.disabled = true; button.classList.toggle('is-selected', button.dataset.vote === storedVote); });
     } else {
       voteElements.status.textContent = 'Los resultados se actualizan en vivo.';
@@ -82,6 +82,9 @@
       icon.className = `vote-icon ${type}`;
       icon.style.setProperty('--vote-color', tones[Math.floor(Math.random() * tones.length)]);
       icon.setAttribute('title', type === 'tie' ? 'Voto Baby Boy' : 'Voto Baby Girl');
+      icon.innerHTML = type === 'tie'
+        ? '<svg viewBox="0 0 20 30" aria-hidden="true"><path d="M4 1h12l-2.2 7.1 2.7 7.4L10 29 3.5 15.5l2.7-7.4z"/><path class="icon-shine" d="M5.7 2.6h8.6l-1 3.1H6.7z"/></svg>'
+        : '<svg viewBox="0 0 22 30" aria-hidden="true"><path d="M6 1c.4 3.3 1.8 5.1 5 5.1S15.6 4.3 16 1l3.3 3.1-1.4 8.2L21 27.5c-5.9 2-14.1 2-20 0l3.2-15.2-1.5-8.2z"/><path class="icon-shine" d="M7.1 10.2c2.5 1.6 5.3 1.6 7.8 0l1.4 13.5c-3.3 1-7.3 1-10.6 0z"/></svg>';
       container.append(icon);
     }
     if (count > visibleCount) {

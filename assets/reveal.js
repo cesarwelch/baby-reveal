@@ -8,6 +8,12 @@
     secondHand: document.querySelector('.hand-second'), minuteHand: document.querySelector('.hand-minute'), hourHand: document.querySelector('.hand-hour'),
     restart: document.querySelector('#restart'), canvas: document.querySelector('#celebration-canvas')
   };
+  const voteConfig = window.VOTE_CONFIG;
+  const voteElements = voteConfig ? {
+    section: document.querySelector('#vote-section'), buttons: document.querySelectorAll('[data-vote]'),
+    status: document.querySelector('#vote-status'), results: document.querySelector('#vote-results'),
+    boyCount: document.querySelector('#boy-count'), girlCount: document.querySelector('#girl-count')
+  } : null;
   if (!elements.panel) return;
   const pad = value => String(Math.max(0, value)).padStart(2, '0');
   let targetTime;
@@ -40,8 +46,60 @@
     elements.days.textContent = pad(days); elements.hours.textContent = pad(hours);
     elements.minutes.textContent = pad(minutes); elements.seconds.textContent = pad(seconds);
     elements.body.classList.toggle('final-seconds', totalSeconds <= 10 && totalSeconds > 0);
+    if (voteElements?.section && !remaining) {
+      voteElements.section.classList.add('voting-closed');
+      voteElements.status.textContent = 'Los votos están cerrados. La sorpresa está por llegar.';
+      voteElements.buttons.forEach(button => { button.disabled = true; });
+    }
     renderClock();
     if (!remaining && !revealed) reveal();
+  }
+
+  function renderVotes(data) {
+    if (!voteElements || !data) return;
+    voteElements.boyCount.textContent = data.boy || 0;
+    voteElements.girlCount.textContent = data.girl || 0;
+    voteElements.results.hidden = false;
+    const storedVote = localStorage.getItem('baby-reveal-vote');
+    if (storedVote) {
+      voteElements.status.textContent = `Tu voto por ${storedVote === 'boy' ? 'Logan José' : 'Mariana Marvelí'} quedó guardado. ¡Gracias!`;
+      voteElements.buttons.forEach(button => { button.disabled = true; button.classList.toggle('is-selected', button.dataset.vote === storedVote); });
+    } else {
+      voteElements.status.textContent = 'Los resultados se actualizan en vivo.';
+    }
+  }
+
+  function requestVotes(vote) {
+    if (!voteConfig || !voteElements) return;
+    const callback = `revealVotes${Date.now()}${Math.floor(Math.random() * 1000)}`;
+    const script = document.createElement('script');
+    window[callback] = data => {
+      renderVotes(data);
+      delete window[callback];
+      script.remove();
+    };
+    const params = new URLSearchParams({ callback });
+    if (vote) params.set('vote', vote);
+    script.src = `${voteConfig.endpoint}?${params}`;
+    script.onerror = () => {
+      voteElements.status.textContent = 'No pudimos cargar los votos. Intenta de nuevo.';
+      delete window[callback];
+      script.remove();
+    };
+    document.body.append(script);
+  }
+
+  function setupVoting() {
+    if (!voteElements) return;
+    voteElements.buttons.forEach(button => button.addEventListener('click', () => {
+      if (localStorage.getItem('baby-reveal-vote')) return;
+      const vote = button.dataset.vote;
+      localStorage.setItem('baby-reveal-vote', vote);
+      voteElements.status.textContent = 'Guardando tu voto…';
+      voteElements.buttons.forEach(item => { item.disabled = true; });
+      requestVotes(vote);
+    }));
+    requestVotes();
   }
 
   function reveal() {
@@ -77,5 +135,6 @@
 
   elements.restart?.addEventListener('click', start);
   window.addEventListener('resize', () => { if (revealed) launchCelebration(); });
+  setupVoting();
   start();
 })();

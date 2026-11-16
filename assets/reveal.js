@@ -97,22 +97,17 @@
 
   function requestVotes(vote) {
     if (!voteConfig || !voteElements) return;
-    const callback = `revealVotes${Date.now()}${Math.floor(Math.random() * 1000)}`;
-    const script = document.createElement('script');
-    window[callback] = data => {
-      renderVotes(data);
-      delete window[callback];
-      script.remove();
-    };
-    const params = new URLSearchParams({ callback });
+    const params = new URLSearchParams();
     if (vote) params.set('vote', vote);
-    script.src = `${voteConfig.endpoint}?${params}`;
-    script.onerror = () => {
+    fetch(`${voteConfig.endpoint}?${params}`, { cache: 'no-store' })
+      .then(response => {
+        if (!response.ok) throw new Error('Vote endpoint unavailable');
+        return response.json();
+      })
+      .then(renderVotes)
+      .catch(() => {
       voteElements.status.textContent = 'No pudimos cargar los votos. Intenta de nuevo.';
-      delete window[callback];
-      script.remove();
-    };
-    document.body.append(script);
+      });
   }
 
   function setupVoting() {

@@ -22,12 +22,13 @@
         <h2 id="vote-title">¿Cuál es tu voto?</h2>
         <p class="vote-intro">Elige a quién crees que conoceremos.</p>
         <div class="vote-buttons">
-          <button class="vote-button boy-vote" type="button" data-vote="boy"><span>✦</span> Logan José</button>
-          <button class="vote-button girl-vote" type="button" data-vote="girl"><span>✦</span> Mariana Marvelí</button>
+          <button class="vote-button boy-vote" type="button" data-vote="boy"><span>✦</span> Baby Boy</button>
+          <button class="vote-button girl-vote" type="button" data-vote="girl"><span>✦</span> Baby Girl</button>
         </div>
         <p class="vote-status" id="vote-status">Cargando votos…</p>
         <div class="vote-results" id="vote-results" aria-live="polite" hidden>
-          <span id="boy-count">0</span><small>votos por Logan</small><i>·</i><span id="girl-count">0</span><small>votos por Mariana</small>
+          <div class="vote-tally boy-tally"><div class="vote-icon-row" id="boy-icons" aria-hidden="true"></div><p><strong id="boy-count">0</strong> <span>Baby Boy</span></p></div>
+          <div class="vote-tally girl-tally"><div class="vote-icon-row" id="girl-icons" aria-hidden="true"></div><p><strong id="girl-count">0</strong> <span>Baby Girl</span></p></div>
         </div>
       </section>
     </main>

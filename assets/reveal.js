@@ -12,7 +12,8 @@
   const voteElements = voteConfig ? {
     section: document.querySelector('#vote-section'), buttons: document.querySelectorAll('[data-vote]'),
     status: document.querySelector('#vote-status'), results: document.querySelector('#vote-results'),
-    boyCount: document.querySelector('#boy-count'), girlCount: document.querySelector('#girl-count')
+    boyCount: document.querySelector('#boy-count'), girlCount: document.querySelector('#girl-count'),
+    boyIcons: document.querySelector('#boy-icons'), girlIcons: document.querySelector('#girl-icons')
   } : null;
   if (!elements.panel) return;
   const pad = value => String(Math.max(0, value)).padStart(2, '0');
@@ -59,6 +60,8 @@
     if (!voteElements || !data) return;
     voteElements.boyCount.textContent = data.boy || 0;
     voteElements.girlCount.textContent = data.girl || 0;
+    renderVoteIcons(voteElements.boyIcons, data.boy || 0, 'tie');
+    renderVoteIcons(voteElements.girlIcons, data.girl || 0, 'dress');
     voteElements.results.hidden = false;
     const storedVote = localStorage.getItem('baby-reveal-vote');
     if (storedVote) {
@@ -66,6 +69,26 @@
       voteElements.buttons.forEach(button => { button.disabled = true; button.classList.toggle('is-selected', button.dataset.vote === storedVote); });
     } else {
       voteElements.status.textContent = 'Los resultados se actualizan en vivo.';
+    }
+  }
+
+  function renderVoteIcons(container, count, type) {
+    if (!container) return;
+    const tones = type === 'tie' ? ['#72b6f2', '#4f91df', '#8bcaf8', '#377ac7', '#a1d8fb'] : ['#efa1be', '#dd719c', '#f5b6cc', '#c95587', '#f8c7d8'];
+    const visibleCount = Math.min(count, 24);
+    container.replaceChildren();
+    for (let index = 0; index < visibleCount; index++) {
+      const icon = document.createElement('span');
+      icon.className = `vote-icon ${type}`;
+      icon.style.setProperty('--vote-color', tones[Math.floor(Math.random() * tones.length)]);
+      icon.setAttribute('title', type === 'tie' ? 'Voto Baby Boy' : 'Voto Baby Girl');
+      container.append(icon);
+    }
+    if (count > visibleCount) {
+      const more = document.createElement('span');
+      more.className = 'more-votes';
+      more.textContent = `+${count - visibleCount}`;
+      container.append(more);
     }
   }
 
